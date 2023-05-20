@@ -27,9 +27,9 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     const allToysCollection = client.db("ToysCollection").collection("allToys");
-
+    
+    // toy collect get api
    
-
     app.get("/collection", async (req, res) => {
       try {
         const coursor = {}
