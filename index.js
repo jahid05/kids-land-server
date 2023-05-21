@@ -25,7 +25,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
     const allToysCollection = client.db("ToysCollection").collection("allToys");
     
     // toy collect get api
@@ -50,6 +50,20 @@ async function run() {
         const result = await allToysCollection.findOne(query);
         res.send(result);
     })
+
+    app.post("/add-collection", async(req, res) => {
+      try {
+        const formData = req.body;
+        const result = await allToysCollection.insertOne(formData);
+        res.send(result);
+      } catch (error) {
+        console.log(error);
+      }
+
+    })
+
+
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
