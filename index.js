@@ -62,6 +62,14 @@ async function run() {
 
     })
 
+    app.get("/myToys/:uid", async(req, res) =>{
+      const uid = req.params.uid;
+      const query = {uid : uid};
+      const result = allToysCollection.find(query);
+      const data = await result.toArray();
+      res.send(data);
+      console.log(uid);
+  })
 
 
 
