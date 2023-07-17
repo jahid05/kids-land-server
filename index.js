@@ -30,16 +30,14 @@ async function run() {
     // toy collect get api
 
     app.get("/collection", async (req, res) => {
-      try {
-        const cursor = {};
-        const data = allToysCollection.find(cursor);
-        const result = await data.toArray();
-        res.send(result);
-        console.log(result);
-      } catch (error) {
-        console.error(error);
-        res.status(500).send("Internal Server Error");
-      }
+      const sort = req.query.sort;
+      const query = {};
+      const option = {
+        price: sort === "asc" ? 1 : -1,
+      };
+      const data = allToysCollection.find(query).sort(option);
+      const result = await data.toArray();
+      res.send(result);
     });
 
     app.get("/toyDetails/:id", async (req, res) => {
